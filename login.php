@@ -42,7 +42,7 @@ $totalQty = $cart->getTotalQtyByUserId();
 
 <body>
     <nav>
-        <label class="logo">HKT-SHOP.com</label>
+        <label class="logo">FPT-SHOP.com</label>
         <ul>
             <li><a href="index.php">Trang chủ</a></li>
             <li><a href="productList.php">Sản phẩm</a></li>
@@ -115,7 +115,7 @@ $totalQty = $cart->getTotalQtyByUserId();
                 <a href="productList.php">Sản Phẩm</a>
             </li>
         </ul>
-        <p class="copyright">copy by HKT-SHOP.com 2022</p>
+        <p class="copyright">copy by FPT-SHOP.com 2023</p>
     </footer>
 </body>
 

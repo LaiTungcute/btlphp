@@ -2,13 +2,9 @@
 $filepath = realpath(dirname(__FILE__));
 include_once($filepath . '/../lib/session.php');
 include_once($filepath . '/../lib/database.php');
-include_once($filepath . '/../lib/PHPMailer.php');
-include_once($filepath . '/../lib/SMTP.php');
+// include_once($filepath . '/../lib/PHPMailer.php');
+// include_once($filepath . '/../lib/SMTP.php');
 
-use PHPMailer\PHPMailer\PHPMailer;
-?>
-
-<?php
 /**
  * 
  */
@@ -55,34 +51,9 @@ class user
 		if ($result_check) {
 			return 'Email đã tồn tại!';
 		} else {
-			// Genarate captcha
-			$captcha = rand(10000, 99999);
-
-			$query = "INSERT INTO users VALUES (NULL,'$email','$fullName','$dob','$password',2,1,'$address',0,'" . $captcha . "') ";
+			$query = "INSERT INTO users VALUES (NULL,'$email','$fullName','$dob','$password',2,1,'$address',1) ";
 			$result = $this->db->insert($query);
 			if ($result) {
-				// Send email
-				$mail = new PHPMailer();
-				$mail->IsSMTP();
-				$mail->Mailer = "smtp";
-
-				$mail->SMTPDebug  = 0;
-				$mail->SMTPAuth   = TRUE;
-				$mail->SMTPSecure = "tls";
-				$mail->Port       = 587;
-				$mail->Host       = "admin@gmail.com";
-				$mail->Username   = "viettrungcntt03@gmail.com";
-				$mail->Password   = "googleviettrungcntt03";
-
-				$mail->IsHTML(true);
-				$mail->CharSet = 'UTF-8';
-				$mail->AddAddress($email, "recipient-name");
-				$mail->SetFrom("viettrungcntt03@gmail.com", "HKT-shop");
-				$mail->Subject = "Xác nhận email tài khoản - HKT-shop";
-				$mail->Body = "<h3>Cảm ơn bạn đã đăng ký tài khoản tại website HKT-shop </h3></br>Đây là mã xác minh tài khoản của bạn: " . $captcha . "";
-
-				$mail->Send();
-
 				return true;
 			} else {
 				return false;
@@ -182,22 +153,7 @@ class user
 		}
 		return false;
 	}
-
-	public function confirm($userId, $captcha)
-	{
-		$query = "SELECT * FROM users WHERE id = '$userId' AND captcha = '$captcha' LIMIT 1";
-		$mysqli_result = $this->db->select($query);
-		if ($mysqli_result) {
-			// Update comfirmed
-			$sql = "UPDATE users SET isConfirmed = 1 WHERE id = $userId";
-			$update = $this->db->update($sql);
-			if ($update) {
-				return true;
-			}
-		}
-		return 'Mã xác minh không đúng!';
-	}
-
+	
 	public function block($id)
 	{
 		$query = "UPDATE users SET status = 0 where id = '$id' and role_id = 2 ";

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mitr');
 
 :root {
-  --color-primary: #01aa39;
+  --color-primary: #ff6500;
   --bg-primary: rgb(238, 228, 228);
 }
 
@@ -205,7 +205,7 @@ a:hover {
 
 .action .detail:hover {
   transition: 0.3s;
-  background: greenyellow;
+  background: rgb(255, 172, 47);
   color: #172330;
 }
 
